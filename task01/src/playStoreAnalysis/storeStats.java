@@ -18,4 +18,8 @@ public record storeStats (String appName, String category, Float rating) {
         return null;
     }
 
+    public Object appCategory() {
+        return null;
+    }
+
     }
