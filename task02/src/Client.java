@@ -4,36 +4,22 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.Scanner;
 
 public class Client {
     public static void main(String[] args) throws UnknownHostException, IOException {
 
-        switch (args.length) {
-            case (args[]):
+         Socket socket = new Socket();
 
-            case (args[1]):
-
-            case (args[2]):
-            
+        try (Socket socket = socket.accept();) {
+            System.out.println("connection established");     
         
-        }
-
-            while (true) {
-                Socket socket = server.accept();
-                System.out.println("connection established");
-                Socket socket = new Socket();      
-            }
-        
-
-        try (InputStream is = socket.getInputStream()) {
+            InputStream is = socket.getInputStream()
             InputStreamReader isr = new InputStreamReader(is);
             BufferedReader br = new BufferedReader (isr);
 
-            Buffer dis = new DataInputStream(bis);
-            String line = dis.readUTF();
-
-            String reply = br.readLine();
-            System.out.println(reply);
+            String line = br.readLine();
+            System.out.println(line);
 
             Scanner scanner = new Scanner(System.in);
             String userInput;
@@ -41,6 +27,7 @@ public class Client {
                 
                 bw.write(userInput+"\n");
                 bw.flush();
+            }
 
         } catch (EOFException e) {
             socket.close();
