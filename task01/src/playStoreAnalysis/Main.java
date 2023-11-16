@@ -5,41 +5,47 @@ import java.io.FileReader;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-public static final int COL_APP = 1;
-public static final int COL_CATEGORY = 2; 
-public static final int COL_RATING = 2; 
+import java.util.stream.Collectors;
 
 public class Main {
+
     public static void main(String[] args) throws Exception {
+
+        FileReader fr = new FileReader(args[0]);
+        BufferedReader br = new BufferedReader(fr);
 
         if (args.length <= 0) {
             System.out.println("Missing CSV file");
             System.exit(1);
         }
 
-        
+        Map <String, storeStats> appStats = new HashMap<>();
 
-        FileReader fr = new FileReader(args[0]);
-        BufferedReader br = new BufferedReader(fr);
+        String line; 
 
+        // br.lines return a stream of strings
+        line = br.lines().toLowerCase()
+            .skip(1) // first line is column name, need to skip
+            .filter(line -> !line.contains("NaN")) // NaN stands for "Not A Number" on android play store; not a rating, filter out
+            .map(line -> line.split(",")) // to split and make into an array
+            .map (col -> new storeStats(col[0].trim(), col[1].trim(), Float.parseFloat(col[2].trim())))
+            .collect(Collectors.groupingBy(record -> record.appCategory()))
+            .forEach( (String appCategory, List<storeStats> records) -> {
+                storeStats stats = new storeStats(appCategory);
+                for(storeStats r: records) 
+                stats.compute(r);
+                appStats.put(appCategory, r);
+            });
 
-        Map <String, List<googlePlayStore>> appInfo = new HashMap<>();
-        br.readLine().toLowerCase();
-
-        // skip first row: titles
-        .skip(1)
-        .amp(row -> row.trim().split(","))
-
-
-        for (String categories : appInfo.keySet()) {
-
-            
-            System.out.println();
-        }
-        
+            for (String info: appStats.keySet()){
+                storeStats store = appStats.get(info);
+                System.out.println("Category: " + store.category());
+                System.out.println("Highest: " + store.getBestApp() + ", " + store.getHighestRating);
+                System.out.println("Lowest: " + store.getWorstapp() + ", " + store.getLowestRating);
+                System.out.println("Average: " + store.getAverageRating());
+                System.out.println("Count: " + (store.getTotal - records.size()));
+                System.out.println("Discarded: " + records.size());
+            }
 
     }
 }
-
-/* first read the file -> then map each app (key) to a category (value) */
