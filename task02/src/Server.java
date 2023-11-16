@@ -20,7 +20,7 @@ public class Server {
             port = Integer.parseInt(args[1]);
             break;
 
-            case 3; 
+            case 3: 
             serverProg = args[2];
             port = Integer.parseInt(args[2]);
 

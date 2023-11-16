@@ -2,9 +2,9 @@ package playStoreAnalysis;
 
 public record storeStats (String appName, String category, Float rating) {
 
-    public String getHighestRating;
-    public String getLowestRating;
-    public String getTotal;
+    public static String getHighestRating;
+    public static String getLowestRating;
+    public static String getTotal;
 
     public String getBestApp() {
         return null;

@@ -40,10 +40,10 @@ public class Main {
             for (String info: appStats.keySet()){
                 storeStats store = appStats.get(info);
                 System.out.println("Category: " + store.category());
-                System.out.println("Highest: " + store.getBestApp() + ", " + store.getHighestRating);
-                System.out.println("Lowest: " + store.getWorstapp() + ", " + store.getLowestRating);
+                System.out.println("Highest: " + store.getBestApp() + ", " + storeStats.getHighestRating);
+                System.out.println("Lowest: " + store.getWorstapp() + ", " + storeStats.getLowestRating);
                 System.out.println("Average: " + store.getAverageRating());
-                System.out.println("Count: " + (store.getTotal - records.size()));
+                System.out.println("Count: " + (storeStats.getTotal - records.size()));
                 System.out.println("Discarded: " + records.size());
             }
 

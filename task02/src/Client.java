@@ -14,7 +14,7 @@ public class Client {
         try (Socket socket = socket.accept();) {
             System.out.println("connection established");     
         
-            InputStream is = socket.getInputStream()
+            InputStream is = socket.getInputStream;
             InputStreamReader isr = new InputStreamReader(is);
             BufferedReader br = new BufferedReader (isr);
 
